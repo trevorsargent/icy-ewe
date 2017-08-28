@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "7"
+dist: trusty
+branches:
+  only:
+    - webpack
+
+before_script:
+  - npm install
+
+script:
+  - npm run build
+
+after_success:
