@@ -1,0 +1,36 @@
+{
+	"name": "es6-boiler",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "gulp",
+		"build": "gulp build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/trevorsargent/boiler.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.6.0",
+		"babel-preset-es2015": "^6.24.1",
+		"babelify": "^7.3.0",
+		"browser-sync": "^2.18.13",
+		"browserify": "^14.4.0",
+		"browsersync": "0.0.1-security",
+		"gulp": "^3.9.1",
+		"gulp-livereload": "^3.8.1",
+		"gulp-server-livereload": "^1.9.2",
+		"gulp-sourcemaps": "^2.6.1",
+		"gulp-uglify": "^3.0.0",
+		"vinyl-buffer": "^1.0.0",
+		"vinyl-source-stream": "^1.1.0"
+	},
+	"bugs": {
+		"url": "https://github.com/trevorsargent/boiler/issues"
+	},
+	"homepage": "https://github.com/trevorsargent/boiler#readme"
+}
