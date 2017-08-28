@@ -1,7 +1,5 @@
 import p5 from 'p5'
 
-
-
 const sketch = (p) => {
 	let gray = 0
 
