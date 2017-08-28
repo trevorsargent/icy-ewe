@@ -26,6 +26,8 @@
 		"gulp-server-livereload": "^1.9.2",
 		"gulp-sourcemaps": "^2.6.1",
 		"gulp-uglify": "^3.0.0",
+		"p5": "^0.5.13",
+		"reset-css": "^2.2.1",
 		"vinyl-buffer": "^1.0.0",
 		"vinyl-source-stream": "^1.1.0"
 	},
