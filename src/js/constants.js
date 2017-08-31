@@ -14,4 +14,8 @@ export const KEYS = {
 // 	RIGHT: 39 // RIGHT ARROW
 // }
 
+<<<<<<< HEAD
 export const OBSTACLESIZE = 20;
+=======
+export const OBSTACLESIZE = 20;
+>>>>>>> master
