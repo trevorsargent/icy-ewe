@@ -195,11 +195,7 @@ const sketch = (p) => {
 	}
 
 	p.draw = () => {
-<<<<<<< HEAD
-		player = updatePlayer(player)
-=======
 		player = updatePlayer(player, obstacles)
->>>>>>> master
 		p.translate(-player.pos.x + cW / 2, -player.pos.y + cH / 2)
 		p.background(255)
 
