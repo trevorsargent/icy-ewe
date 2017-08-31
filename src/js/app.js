@@ -13,6 +13,8 @@ const sketch = (p) => {
 	let playerColor = [0, 0, 128]
 	let obsColor = [0, 128, 0]
 
+	let obstacles = []
+
 	let player = {
 		pos: p.createVector(cW / 2, cH / 2),
 		vel: p.createVector(0, 0),
@@ -40,14 +42,12 @@ const sketch = (p) => {
 		p.pop()
 	}
 
-	let collisions = []
-
 	const updatePlayer = (player, obstacles) => {
 		obstacles = obstacles.filter(f => {
 			return player.pos.dist(f.pos) < player.size * 2
 		})
 		for (var e of obstacles) {
-			collisions = detectCollision(player, e)
+			let collisions = detectCollision(player, e)
 			if (collisions.right || collisions.left) {
 				player.vel.add(p.createVector(-player.vel.x, 0))
 			}
@@ -123,68 +123,6 @@ const sketch = (p) => {
 		// if an obstacle is s close enough on top, set up to true
 		// if an obstacle is close enough on the bottom, set down to true
 	}
-
-	let obstacles = []
-
-	let player = {
-		pos: p.createVector(cW / 2, cH / 2),
-		vel: p.createVector(0, 0),
-		size: 50
-	}
-
-	const updatePlayer = (player) => {
-		player.pos.add(player.vel)
-		return player
-	}
-
-	const newObstacle = () => {
-		return {
-			pos: p.createVector(p.random(cW), p.random(cH)),
-			size: OBSTACLESIZE
-		}
-	}
-
-	const drawObstacle = (pos, size) => {
-		p.push()
-		p.fill(0, 128, 0)
-		p.rect(pos.x - size / 2, pos.y - size / 2, size, size)
-		p.pop()
-	}
-
-	const drawPlayer = (pos, size) => {
-		p.push()
-		p.fill(0, 0, 128)
-		p.rect(pos.x - size / 2, pos.y - size / 2, size, size)
-		p.pop()
-	}
-
-	const detectCollision = (player, obstacles) => {
-		let collisions = {
-			up: false,
-			down: false,
-			right: false,
-			left: false
-
-		}
-
-		obstacles.forEach(e => {
-			// 'conflict' in this context means that both objects occupy a given pixel row (horz) or collumn (vert) 
-
-			// check if they conflict horizontally
-			// if an obstacle is s close enough on the right, set right to true
-			// if an obstacle is s close enough on the left, set left to true
-
-			// check if they conflict vertically
-			// if an obstacle is s close enough on top, set up to true
-			// if an obstacle is close enough on the bottom, set down to true
-		})
-
-		return collisions
-
-	}
-
-	let obstacles = []
-
 	p.setup = () => {
 		p.createCanvas(cW, cH)
 		p.noStroke()
