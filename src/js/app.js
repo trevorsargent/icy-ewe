@@ -48,10 +48,16 @@ const sketch = (p) => {
 		})
 		for (var e of obstacles) {
 			let collisions = detectCollision(player, e)
-			if (collisions.right || collisions.left) {
+			if (collisions.right && player.vel.x > 0) {
 				player.vel.add(p.createVector(-player.vel.x, 0))
 			}
-			if (collisions.up || collisions.down) {
+			if (collisions.left && player.vel.x < 0) {
+				player.vel.add(p.createVector(-player.vel.x, 0))
+			}
+			if (collisions.down && player.vel.y > 0) {
+				player.vel.add(p.createVector(0, -player.vel.y))
+			}
+			if (collisions.up && player.vel.y < 0) {
 				player.vel.add(p.createVector(0, -player.vel.y))
 			}
 		}
