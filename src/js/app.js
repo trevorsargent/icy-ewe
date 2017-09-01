@@ -1,7 +1,7 @@
 import p5 from 'p5'
 
 import { KEYS, WALKVELOCITY, OBSTACLESIZE } from './constants.js'
-a
+
 const sketch = (p) => {
 
   let cW = p.windowWidth
@@ -14,6 +14,7 @@ const sketch = (p) => {
   let player = {
     pos: p.createVector(cW / 2, cH / 2),
     vel: p.createVector(0, 0),
+    acc: p.createVector(0, 0),
     width: 50,
     height: 60
   }
@@ -71,24 +72,16 @@ const sketch = (p) => {
     obstacles = obstacles.filter(f => {
       return player.pos.dist(f.pos) < Math.max(player.width, player.height) * 2
     })
-    for (var e of obstacles) {
-      let collisions = detectCollision(player, e)
-      if (collisions.right && player.vel.x > 0) {
-        player.vel.add(p.createVector(-player.vel.x, 0))
-      }
-      if (collisions.left && player.vel.x < 0) {
-        player.vel.add(p.createVector(-player.vel.x, 0))
-      }
-      if (collisions.down && player.vel.y > 0) {
-        player.vel.add(p.createVector(0, -player.vel.y))
-      }
-      if (collisions.up && player.vel.y < 0) {
-        player.vel.add(p.createVector(0, -player.vel.y))
-      }
-    }
-    if (!p.keyIsPressed) {
-      player.vel = p.createVector(0, 0)
-    }
+
+    let vel = calculateControlVelocityVector()
+
+    obstacles.forEach(e => {
+      let collisions = detectCollisions(player, e)
+      vel = applyCollisions(vel, collisions)
+    })
+
+    player.vel = vel
+
     player.pos.add(player.vel)
     return player
   }
@@ -100,29 +93,27 @@ const sketch = (p) => {
 
   const horizSpaceBetween = (player, ob) => {
     let dist = Math.abs(player.pos.x - ob.pos.x) - Math.abs(player.width / 2 + ob.width / 2)
-    if (dist > 0) {
+    if (dist >= 0) {
       return dist
-    }else {
+    } else {
       return 0
     }
   }
 
   const vertSpaceBetween = (player, ob) => {
     let dist = Math.abs(Math.abs(player.pos.y - ob.pos.y) - Math.abs(player.height / 2 + ob.height / 2))
-    if (dist > 0) {
+    if (dist >= 0) {
       return dist
-    }else {
+    } else {
       return 0
     }
   }
 
-  const detectCollision = (player, ob) => {
+  const detectCollisions = (player, ob) => {
     let vertColl = rangeIntersect(player.pos.x - (player.width / 2), player.pos.x + (player.width / 2),
         ob.pos.x - (ob.width / 2), ob.pos.x + (ob.width / 2)) && (Math.ceil(vertSpaceBetween(player, ob)) <= WALKVELOCITY)
     let horizColl = rangeIntersect(player.pos.y - (player.height / 2), player.pos.y + (player.height / 2),
         ob.pos.y - (ob.height / 2), ob.pos.y + (ob.height / 2)) && (Math.ceil(horizSpaceBetween(player, ob)) <= WALKVELOCITY)
-
-    playerColor = [0, 0, 128]
 
     let collisions = {
       up: false,
@@ -145,6 +136,42 @@ const sketch = (p) => {
 
     return collisions
   }
+
+  const calculateControlVelocityVector = () => {
+    let vel = p.createVector(0, 0)
+
+    if (p.keyIsDown(KEYS.UP)) {
+      vel.y -= WALKVELOCITY
+    }
+    if (p.keyIsDown(KEYS.DOWN)) {
+      vel.y += WALKVELOCITY
+    }
+    if (p.keyIsDown(KEYS.LEFT)) {
+      vel.x -= WALKVELOCITY
+    }
+    if (p.keyIsDown(KEYS.RIGHT)) {
+      vel.x += WALKVELOCITY
+    }
+
+    return vel
+  }
+
+  const applyCollisions = (vel, collisions) => {
+    if (collisions.right) {
+      vel.x -= WALKVELOCITY
+    }
+    if (collisions.left) {
+      vel.x += WALKVELOCITY
+    }
+    if (collisions.up) {
+      vel.y += WALKVELOCITY
+    }
+    if (collisions.down) {
+      vel.y -= WALKVELOCITY
+    }
+    return vel
+  }
+
   p.setup = () => {
     p.createCanvas(cW, cH)
     p.noStroke()
@@ -164,45 +191,6 @@ const sketch = (p) => {
     })
 
     drawPlayer(player)
-  }
-
-  p.keyPressed = () => {
-    switch (p.keyCode) {
-      case KEYS.RIGHT:
-        player.vel.x += WALKVELOCITY
-        break
-      case KEYS.LEFT:
-        player.vel.x -= WALKVELOCITY
-        break
-      case KEYS.UP:
-        player.vel.y -= WALKVELOCITY
-        break
-      case KEYS.DOWN:
-        player.vel.y += WALKVELOCITY
-        break
-      default:
-
-    }
-    return false
-  }
-
-  p.keyReleased = () => {
-    switch (p.keyCode) {
-      case KEYS.RIGHT:
-        player.vel.x -= WALKVELOCITY
-        break
-      case KEYS.LEFT:
-        player.vel.x += WALKVELOCITY
-        break
-      case KEYS.UP:
-        player.vel.y += WALKVELOCITY
-        break
-      case KEYS.DOWN:
-        player.vel.y -= WALKVELOCITY
-        break
-      default:
-    }
-    return false
   }
 }
 
