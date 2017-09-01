@@ -1,10 +1,10 @@
-export const WALKVELOCITY = 3;
+export const WALKVELOCITY = 3
 
 export const KEYS = {
-	UP: 87, // W
-	DOWN: 83, // S
-	LEFT: 65, // A
-	RIGHT: 68 // D
+  UP: 87, // W
+  DOWN: 83, // S
+  LEFT: 65, // A
+  RIGHT: 68 // D
 }
 
 // export const KEYS = {
@@ -14,4 +14,4 @@ export const KEYS = {
 // 	RIGHT: 39 // RIGHT ARROW
 // }
 
-export const OBSTACLESIZE = 20;
+export const OBSTACLESIZE = 100
