@@ -14,7 +14,7 @@ export const add = (vec1, vec2) => {
     }
 }
 
-export const sub = (vec1, vec2) => {
+export const dist = (vec1, vec2) => {
     return {
         x: vec1.x - vec2.x,
         y: vec1.y - vec2.y,

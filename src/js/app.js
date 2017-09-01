@@ -5,66 +5,66 @@ import { newRandomObstacle } from './objects/obstacle.js'
 
 const sketch = (p) => {
 
-  let playerColor = [0, 0, 128]
-  let obsColor = [0, 128, 0]
+	let playerColor = [0, 0, 128]
+	let obsColor = [0, 128, 0]
 
-  let obstacles = []
+	let obstacles = []
 
-  let player = {}
+	let player = {}
 
-  const drawObstacle = (obstacle) => {
-    p.push()
-    p.fill(obsColor)
-    // console.log("obstacle", obstacle, )
-    p.rect(
-      obstacle.pos.x - obstacle.width / 2,
-      obstacle.pos.y - obstacle.height / 2,
-      obstacle.width,
-      obstacle.height)
-    p.pop()
-  }
+	const drawObstacle = (obstacle) => {
+		p.push()
+		p.fill(obsColor)
+		// console.log("obstacle", obstacle, )
+		p.rect(
+			obstacle.pos.x - obstacle.width / 2,
+			obstacle.pos.y - obstacle.height / 2,
+			obstacle.width,
+			obstacle.height)
+		p.pop()
+	}
 
-  const drawPlayer = (player) => {
-    p.push()
-    p.fill(playerColor)
-    p.rect(player.pos.x - player.width / 2,
-      player.pos.y - player.height / 2,
-      player.width,
-      player.height)
-    p.pop()
-  }
+	const drawPlayer = (player) => {
+		p.push()
+		p.fill(playerColor)
+		p.rect(player.pos.x - player.width / 2,
+			player.pos.y - player.height / 2,
+			player.width,
+			player.height)
+		p.pop()
+	}
 
-  p.setup = () => {
-    player = newPlayer()
-    p.createCanvas(cW, cH)
-    p.noStroke()
-    obstacles.push(newRandomObstacle(player))
-    obstacles.push(newRandomObstacle(player))
-    obstacles.push(newRandomObstacle(player))
-    obstacles.push(newRandomObstacle(player))
-  }
+	p.setup = () => {
+		player = newPlayer()
+		p.createCanvas(cW, cH)
+		p.noStroke()
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+	}
 
-  p.draw = () => {
-    player = updatePlayer(player, obstacles, getKeyboardInput())
-    p.translate(-player.pos.x + cW / 2, -player.pos.y + cH / 2)
-    p.background(255)
+	p.draw = () => {
+		player = updatePlayer(player, obstacles, getKeyboardInput())
+		p.translate(-player.pos.x + cW / 2, -player.pos.y + cH / 2)
+		p.background(255)
 
-    obstacles.forEach(e => {
-      drawObstacle(e)
-    })
+		obstacles.forEach(e => {
+			drawObstacle(e)
+		})
 
-    drawPlayer(player)
-  // p.noLoop()
-  }
+		drawPlayer(player)
+		// p.noLoop()
+	}
 
-  const getKeyboardInput = () => {
-    return {
-      up: p.keyIsDown(KEYS.UP),
-      down: p.keyIsDown(KEYS.DOWN),
-      left: p.keyIsDown(KEYS.LEFT),
-      right: p.keyIsDown(KEYS.RIGHT)
-    }
-  }
+	const getKeyboardInput = () => {
+		return {
+			up: p.keyIsDown(KEYS.UP),
+			down: p.keyIsDown(KEYS.DOWN),
+			left: p.keyIsDown(KEYS.LEFT),
+			right: p.keyIsDown(KEYS.RIGHT)
+		}
+	}
 }
 
 new p5(sketch) // 2nd param can be a canvas html element
