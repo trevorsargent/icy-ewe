@@ -1,6 +1,6 @@
 import { random, randomExcludingRange } from '../lib/helpers.js'
 import { cW, cH, OBSTACLESIZE } from '../lib/constants.js'
-import { createVector } from '../lib/vector.js'
+import { createVector } from '../math/vector.js'
 
 export const newRandomObstacle = (player) => {
   const w = random(OBSTACLESIZE)
