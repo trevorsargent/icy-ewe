@@ -1,4 +1,4 @@
-import { createVector, add, dist } from '../math/vector.js'
+import { createVector, add, dist, normalize, scale, magnitude } from '../math/vector.js'
 import { cW, cH, WALKVELOCITY } from '../lib/constants.js'
 import { detectCollisions, applyCollisions, isNear } from '../math/physics.js'
 
@@ -14,6 +14,8 @@ export const updatePlayer = (player, obstacles, keys) => {
 		vel = applyCollisions(vel, collisions)
 	})
 
+	vel = normalize(vel)
+	vel = scale(vel, WALKVELOCITY)
 	player.vel = vel
 
 	player.pos = add(player.pos, player.vel)
