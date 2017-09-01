@@ -1,10 +1,10 @@
 import { createVector, add, dist } from '../math/vector.js'
 import { cW, cH, WALKVELOCITY } from '../lib/constants.js'
-import { detectCollisions, applyCollisions, } from '../math/physics.js'
+import { detectCollisions, applyCollisions, isNear } from '../math/physics.js'
 
 export const updatePlayer = (player, obstacles, keys) => {
 	obstacles = obstacles.filter(f => {
-		return dist(player.pos, f.pos) < Math.max(player.width, player.height) * 2
+		return isNear(player, f)
 	})
 
 	let vel = calculateControlVelocityVector(keys)

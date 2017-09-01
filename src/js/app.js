@@ -2,7 +2,7 @@ import p5 from 'p5'
 import { newPlayer, updatePlayer } from './objects/player.js'
 import { cW, cH, KEYS } from './lib/constants.js'
 import { newRandomObstacle } from './objects/obstacle.js'
-import { wallSet } from './world/walls.js'
+import { wallPath } from './world/walls.js'
 import { createVector } from './math/vector.js'
 
 const sketch = (p) => {
@@ -40,10 +40,10 @@ const sketch = (p) => {
 		player = newPlayer()
 		p.createCanvas(cW, cH)
 		p.noStroke()
-		// obstacles.push(newRandomObstacle(player))
-		// obstacles.push(newRandomObstacle(player))
-		// obstacles.push(newRandomObstacle(player))
-		// obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
+		obstacles.push(newRandomObstacle(player))
 
 		const A = createVector(200, 100)
 		const B = createVector(200, 300)

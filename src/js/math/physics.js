@@ -51,18 +51,22 @@ const vertSpaceBetween = (player, ob) => {
 	}
 }
 
+export const isNear = (player, ob) => {
+	return vertSpaceBetween(player, ob) < 50 || horizSpaceBetween(player, ob) < 50
+}
+
 export const applyCollisions = (vel, collisions) => {
 	if (collisions.right) {
-		vel.x -= WALKVELOCITY
+		vel.x = vel.x > 0 ? 0 : vel.x
 	}
 	if (collisions.left) {
-		vel.x += WALKVELOCITY
+		vel.x = vel.x < 0 ? 0 : vel.x
 	}
 	if (collisions.up) {
-		vel.y += WALKVELOCITY
+		vel.y = vel.y < 0 ? 0 : vel.y
 	}
 	if (collisions.down) {
-		vel.y -= WALKVELOCITY
+		vel.y = vel.y > 0 ? 0 : vel.y
 	}
 	return vel
 }
