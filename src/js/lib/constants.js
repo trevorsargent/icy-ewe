@@ -3,6 +3,8 @@ export const WALKVELOCITY = 3
 export const cW = window.innerWidth
 export const cH = window.innerHeight
 
+export const WALLTHICKNESS = 10
+
 export const KEYS = {
   UP: 87, // W
   DOWN: 83, // S
