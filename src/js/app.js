@@ -49,9 +49,9 @@ const sketch = (p) => {
 		const B = createVector(200, 300)
 		const C = createVector(100, 200)
 		const D = createVector(300, 200)
-		obstacles.push.apply(obstacles, wallSet([A, B]))
-		obstacles = obstacles.concat(wallSet([C, D]))
-		obstacles.push(newRandomObstacle(player))
+		obstacles = obstacles.concat(wallPath([A, B]))
+		obstacles.push.apply(obstacles, wallPath([A, B]))
+		obstacles = obstacles.concat(wallPath([C, D]))
 	}
 
 	p.draw = () => {
@@ -64,7 +64,6 @@ const sketch = (p) => {
 		})
 
 		drawPlayer(player)
-		// p.noLoop()
 	}
 
 	const getKeyboardInput = () => {
@@ -77,4 +76,4 @@ const sketch = (p) => {
 	}
 }
 
-new p5(sketch) // 2nd param can be a canvas html element
+new p5(sketch)
