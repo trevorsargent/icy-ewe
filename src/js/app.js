@@ -55,6 +55,9 @@ const sketch = (p) => {
 				player.vel.add(p.createVector(0, -player.vel.y))
 			}
 		}
+		if (!p.keyIsPressed) {
+			player.vel = p.createVector(0, 0)
+		}
 		player.pos.add(player.vel)
 		return player
 	}
@@ -144,6 +147,10 @@ const sketch = (p) => {
 		drawPlayer(player.pos, player.size)
 	}
 
+	p.keyIsPressed = () => {
+
+	}
+
 	p.keyPressed = () => {
 		switch (p.keyCode) {
 			case KEYS.RIGHT:
@@ -161,6 +168,7 @@ const sketch = (p) => {
 			default:
 
 		}
+		return false;
 	}
 
 	p.keyReleased = () => {
@@ -179,6 +187,7 @@ const sketch = (p) => {
 				break
 			default:
 		}
+		return false;
 	}
 }
 
