@@ -21,9 +21,24 @@ const sketch = (p) => {
 		size: 50
 	}
 
+	const randomExcludingRange = (exRangeMin, exRangeMax, totalRangeMin, totalRangeMax) => {
+		let posNeg = p.random()
+		if (posNeg < .5) {
+			return p.random(totalRangeMin, exRangeMin)
+		}
+		if (posNeg > .5) {
+			return p.random(exRangeMax, totalRangeMax)
+		}
+
+	}
+
 	const newObstacle = () => {
+		let xVal = randomExcludingRange(cW / 2 - player.size / 2 + OBSTACLESIZE,
+			cW / 2 + player.size / 2 + OBSTACLESIZE, 0, cW)
+		let yVal = randomExcludingRange(cH / 2 - player.size / 2 + OBSTACLESIZE,
+			cH / 2 + player.size / 2 + OBSTACLESIZE, 0, cH)
 		return {
-			pos: p.createVector(p.random(cW), p.random(cH)),
+			pos: p.createVector(xVal, yVal),
 			size: OBSTACLESIZE
 		}
 	}
