@@ -1,4 +1,4 @@
-import { createVector, add, dist, } from '../math/vectorLib.js'
+import { createVector, add, dist } from '../math/vector.js'
 import { cW, cH, WALKVELOCITY } from '../lib/constants.js'
 import { detectCollisions, applyCollisions } from '../math/physics.js'
 
