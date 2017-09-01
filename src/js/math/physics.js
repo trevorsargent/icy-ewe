@@ -1,4 +1,6 @@
-const detectCollisions = (player, ob) => {
+import { WALKVELOCITY } from '../lib/constants.js'
+
+export const detectCollisions = (player, ob) => {
   let vertColl = rangeIntersect(player.pos.x - (player.width / 2), player.pos.x + (player.width / 2),
       ob.pos.x - (ob.width / 2), ob.pos.x + (ob.width / 2)) && (Math.ceil(vertSpaceBetween(player, ob)) <= WALKVELOCITY)
   let horizColl = rangeIntersect(player.pos.y - (player.height / 2), player.pos.y + (player.height / 2),
@@ -49,7 +51,7 @@ const vertSpaceBetween = (player, ob) => {
   }
 }
 
-const applyCollisions = (vel, collisions) => {
+export const applyCollisions = (vel, collisions) => {
   if (collisions.right) {
     vel.x -= WALKVELOCITY
   }

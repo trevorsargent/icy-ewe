@@ -1,16 +1,20 @@
-const newRandomObstacle = () => {
-  const w = p.random(OBSTACLESIZE)
-  const h = p.random(OBSTACLESIZE)
-  return newObstacle(w, h)
+import { random, randomExcludingRange } from '../lib/helpers.js'
+import { cW, cH, OBSTACLESIZE } from '../lib/constants.js'
+import { createVector } from '../lib/vector.js'
+
+export const newRandomObstacle = (player) => {
+  const w = random(OBSTACLESIZE)
+  const h = random(OBSTACLESIZE)
+  return newObstacle(w, h, player)
 }
 
-const newObstacle = (obstacleWidth, obstacleHeight) => {
+const newObstacle = (obstacleWidth, obstacleHeight, player) => {
   let xVal = randomExcludingRange(cW / 2 - player.width / 2 + obstacleWidth,
     cW / 2 + player.width / 2 + obstacleWidth, 0, cW)
   let yVal = randomExcludingRange(cH / 2 - player.height / 2 + obstacleHeight,
     cH / 2 + player.height / 2 + obstacleHeight, 0, cH)
   return {
-    pos: p.createVector(xVal, yVal),
+    pos: createVector(xVal, yVal),
     width: obstacleWidth,
     height: obstacleHeight
   }

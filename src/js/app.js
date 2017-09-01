@@ -1,19 +1,21 @@
 import p5 from 'p5'
+import { newPlayer, updatePlayer } from './objects/player.js'
+import { cW, cH, KEYS } from './lib/constants.js'
+import { newRandomObstacle } from './objects/obstacle.js'
 
 const sketch = (p) => {
 
-  let cW = p.windowWidth
-  let cH = p.windowHeight
   let playerColor = [0, 0, 128]
   let obsColor = [0, 128, 0]
 
   let obstacles = []
 
-  let player = newPlayer()
+  let player = {}
 
   const drawObstacle = (obstacle) => {
     p.push()
     p.fill(obsColor)
+    // console.log("obstacle", obstacle, )
     p.rect(
       obstacle.pos.x - obstacle.width / 2,
       obstacle.pos.y - obstacle.height / 2,
@@ -33,16 +35,17 @@ const sketch = (p) => {
   }
 
   p.setup = () => {
+    player = newPlayer()
     p.createCanvas(cW, cH)
     p.noStroke()
-    obstacles.push(newRandomObstacle())
-    obstacles.push(newRandomObstacle())
-    obstacles.push(newRandomObstacle())
-    obstacles.push(newRandomObstacle())
+    obstacles.push(newRandomObstacle(player))
+    obstacles.push(newRandomObstacle(player))
+    obstacles.push(newRandomObstacle(player))
+    obstacles.push(newRandomObstacle(player))
   }
 
   p.draw = () => {
-    player = updatePlayer(player, obstacles)
+    player = updatePlayer(player, obstacles, getKeyboardInput())
     p.translate(-player.pos.x + cW / 2, -player.pos.y + cH / 2)
     p.background(255)
 
@@ -51,6 +54,16 @@ const sketch = (p) => {
     })
 
     drawPlayer(player)
+  // p.noLoop()
+  }
+
+  const getKeyboardInput = () => {
+    return {
+      up: p.keyIsDown(KEYS.UP),
+      down: p.keyIsDown(KEYS.DOWN),
+      left: p.keyIsDown(KEYS.LEFT),
+      right: p.keyIsDown(KEYS.RIGHT)
+    }
   }
 }
 
