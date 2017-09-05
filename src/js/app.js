@@ -3,7 +3,7 @@ import { newPlayer, updatePlayer } from './objects/player.js'
 import { cW, cH, KEYS } from './lib/constants.js'
 import { newRandomObstacle } from './objects/obstacle.js'
 import { wallPath } from './world/walls.js'
-import { createVector } from './math/vector.js'
+import { createVector, magnitude } from './math/vector.js'
 
 const sketch = (p) => {
 
@@ -27,7 +27,14 @@ const sketch = (p) => {
 	}
 
 	const drawPlayer = (player) => {
-		p.image(player.skin.walk[0], player.pos.x - player.width / 2, player.pos.y - player.height / 2)
+		let walkCycle = 0;
+		if (player.vel.x < 0) {
+			walkCycle = (Math.floor(p.frameCount / 10) % 4)
+		} else if (player.vel.x > 0) {
+			walkCycle = 3 - (Math.floor(p.frameCount / 10) % 4)
+		}
+
+		p.image(player.skin.walk[walkCycle], player.pos.x - player.width / 2, player.pos.y - player.height / 2)
 		p.push()
 		p.fill(playerColor)
 		p.pop()
@@ -57,9 +64,14 @@ const sketch = (p) => {
 	}
 
 	p.draw = () => {
+		p.background(255)
+		p.color(0)
+		p.fill(0)
+		p.textSize(20)
+		p.text(Math.ceil(p.frameRate()), 50, 50)
+
 		player = updatePlayer(player, obstacles, getKeyboardInput())
 		p.translate(-player.pos.x + cW / 2, -player.pos.y + cH / 2)
-		p.background(255)
 
 		obstacles.forEach(e => {
 			drawObstacle(e)
