@@ -27,17 +27,19 @@ const sketch = (p) => {
 	}
 
 	const drawPlayer = (player) => {
+		p.image(player.skin.walk[0], player.pos.x - player.width / 2, player.pos.y - player.height / 2)
 		p.push()
 		p.fill(playerColor)
-		p.rect(player.pos.x - player.width / 2,
-			player.pos.y - player.height / 2,
-			player.width,
-			player.height)
 		p.pop()
 	}
 
 	p.setup = () => {
 		player = newPlayer()
+		player.skin.walk[0] = p.loadImage('./src/textures/player.walk.0.jpeg')
+		player.skin.walk[1] = p.loadImage('./src/textures/player.walk.1.jpeg')
+		player.skin.walk[2] = p.loadImage('./src/textures/player.walk.2.jpeg')
+		player.skin.walk[3] = p.loadImage('./src/textures/player.walk.3.jpeg')
+
 		p.createCanvas(cW, cH)
 		p.noStroke()
 		obstacles.push(newRandomObstacle(player))

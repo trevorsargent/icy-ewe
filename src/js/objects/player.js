@@ -25,8 +25,11 @@ export const newPlayer = () => {
 		pos: createVector(cW / 2, cH / 2),
 		vel: createVector(0, 0),
 		acc: createVector(0, 0),
+		skin: {
+			walk: []
+		},
 		width: 50,
-		height: 60
+		height: 50
 	}
 }
 
