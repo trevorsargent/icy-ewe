@@ -14,6 +14,28 @@ const sketch = (p) => {
 
 	let player = {}
 
+	const addSkin = (player) => {
+		player.skin.walk.right[0] = p.loadImage('./src/textures/player/walk/right-0.jpg')
+		player.skin.walk.right[1] = p.loadImage('./src/textures/player/walk/right-1.jpg')
+		player.skin.walk.right[2] = p.loadImage('./src/textures/player/walk/right-2.jpg')
+		player.skin.walk.right[3] = p.loadImage('./src/textures/player/walk/right-3.jpg')
+		player.skin.walk.right[4] = p.loadImage('./src/textures/player/walk/right-4.jpg')
+		player.skin.walk.right[5] = p.loadImage('./src/textures/player/walk/right-5.jpg')
+		player.skin.walk.right[6] = p.loadImage('./src/textures/player/walk/right-6.jpg')
+		player.skin.walk.right[7] = p.loadImage('./src/textures/player/walk/right-7.jpg')
+		player.skin.walk.right[8] = p.loadImage('./src/textures/player/walk/right-8.jpg')
+		player.skin.walk.left[0] = p.loadImage('./src/textures/player/walk/left-0.jpg')
+		player.skin.walk.left[1] = p.loadImage('./src/textures/player/walk/left-1.jpg')
+		player.skin.walk.left[2] = p.loadImage('./src/textures/player/walk/left-2.jpg')
+		player.skin.walk.left[3] = p.loadImage('./src/textures/player/walk/left-3.jpg')
+		player.skin.walk.left[4] = p.loadImage('./src/textures/player/walk/left-4.jpg')
+		player.skin.walk.left[5] = p.loadImage('./src/textures/player/walk/left-5.jpg')
+		player.skin.walk.left[6] = p.loadImage('./src/textures/player/walk/left-6.jpg')
+		player.skin.walk.left[7] = p.loadImage('./src/textures/player/walk/left-7.jpg')
+		player.skin.walk.left[8] = p.loadImage('./src/textures/player/walk/left-8.jpg')
+		return player;
+	}
+
 	const drawObstacle = (obstacle) => {
 		p.push()
 		p.fill(obsColor)
@@ -28,13 +50,20 @@ const sketch = (p) => {
 
 	const drawPlayer = (player) => {
 		let walkCycle = 0;
-		if (player.vel.x < 0) {
-			walkCycle = (Math.floor(p.frameCount / 10) % 4)
-		} else if (player.vel.x > 0) {
-			walkCycle = 3 - (Math.floor(p.frameCount / 10) % 4)
+		let img;
+		if (magnitude(player.vel) > 0) {
+			walkCycle = (Math.floor(p.frameCount / 2) % 9)
+			if (player.vel.x > 0) {
+				img = player.skin.walk.right[walkCycle];
+			} else {
+				img = player.skin.walk.left[walkCycle];
+			}
+		} else {
+			img = player.skin.walk.right[0]
 		}
 
-		p.image(player.skin.walk[walkCycle], player.pos.x - player.width / 2, player.pos.y - player.height / 2)
+
+		p.image(img, player.pos.x - player.width / 2, player.pos.y - player.height / 2)
 		p.push()
 		p.fill(playerColor)
 		p.pop()
@@ -42,10 +71,8 @@ const sketch = (p) => {
 
 	p.setup = () => {
 		player = newPlayer()
-		player.skin.walk[0] = p.loadImage('./src/textures/player.walk.0.jpeg')
-		player.skin.walk[1] = p.loadImage('./src/textures/player.walk.1.jpeg')
-		player.skin.walk[2] = p.loadImage('./src/textures/player.walk.2.jpeg')
-		player.skin.walk[3] = p.loadImage('./src/textures/player.walk.3.jpeg')
+		player = addSkin(player)
+
 
 		p.createCanvas(cW, cH)
 		p.noStroke()
