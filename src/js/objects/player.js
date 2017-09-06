@@ -8,7 +8,6 @@ export const updatePlayer = (player, obstacles, keys) => {
 	})
 
 	let vel = calculateControlVelocityVector(keys)
-
 	obstacles.forEach(e => {
 		let collisions = detectCollisions(player, e)
 		vel = applyCollisions(vel, collisions)
@@ -34,7 +33,8 @@ export const newPlayer = () => {
 			}
 		},
 		width: 25,
-		height: 50
+		height: 50,
+		prevDirection: "right"
 	}
 }
 
