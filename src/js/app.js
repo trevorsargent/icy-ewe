@@ -40,11 +40,18 @@ const sketch = (p) => {
 		p.push()
 		p.fill(obsColor)
 		// console.log("obstacle", obstacle, )
+		let curvature = 0
+		if (obstacle.width >= obstacle.height) {
+			curvature = obstacle.width * .05
+		}
+		else {
+			curvature = obstacle.height * .05
+		}
 		p.rect(
 			obstacle.pos.x - obstacle.width / 2,
 			obstacle.pos.y - obstacle.height / 2,
 			obstacle.width,
-			obstacle.height)
+			obstacle.height, curvature)
 		p.pop()
 	}
 
@@ -55,11 +62,18 @@ const sketch = (p) => {
 			walkCycle = (Math.floor(p.frameCount / 2) % 9)
 			if (player.vel.x > 0) {
 				img = player.skin.walk.right[walkCycle];
+				player.prevDirection = "right"
 			} else {
 				img = player.skin.walk.left[walkCycle];
+				player.prevDirection = "left"
 			}
 		} else {
-			img = player.skin.walk.right[0]
+			if (player.prevDirection == "left") {
+				img = player.skin.walk.left[0]
+			}
+			else {
+				img = player.skin.walk.right[0]
+			}
 		}
 
 
