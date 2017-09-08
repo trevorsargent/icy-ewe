@@ -2,8 +2,5 @@
 #node
 node_modules
 
-#build
-dist
-
 #OSX
 .DS_Store
