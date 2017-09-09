@@ -2,8 +2,8 @@ import p5 from 'p5'
 import { newPlayer, updatePlayer } from './objects/player.js'
 import { cW, cH, KEYS } from './lib/constants.js'
 import { newRandomObstacle } from './objects/obstacle.js'
+import { wallPath } from './world/walls.js'
 import { createVector, magnitude } from './math/vector.js'
-import { createHouse } from './objects/house.js'
 
 const sketch = (p) => {
 
