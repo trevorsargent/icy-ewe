@@ -2,8 +2,12 @@ import { createVector, add, dist, normalize, scale } from '../math/vector.js'
 import { cW, cH, WALKVELOCITY } from '../lib/constants.js'
 import { detectCollisions, applyCollisions, isNear } from '../math/physics.js'
 
-export const updatePlayer = (player, obstacles, keys) => {
+export const updatePlayer = (player, obstacles, treats, keys) => {
 	obstacles = obstacles.filter(f => {
+		return isNear(player, f)
+	})
+
+	treats = treats.filter(f => {
 		return isNear(player, f)
 	})
 
@@ -11,6 +15,14 @@ export const updatePlayer = (player, obstacles, keys) => {
 	obstacles.forEach(e => {
 		let collisions = detectCollisions(player, e)
 		vel = applyCollisions(vel, collisions)
+	})
+
+	treats.forEach(e => {
+		let collisions = detectCollisions(player, e)
+		if (collisions.up || collisions.down || collisions.left || collisions.right) {
+			e.pickedUp = true
+			treats.pos = createVector(player.pos.x + 80, player.pos.y + 120)
+		}
 	})
 
 	vel = normalize(vel)

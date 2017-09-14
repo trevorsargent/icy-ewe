@@ -20,3 +20,4 @@ export const KEYS = {
 // }
 
 export const OBSTACLESIZE = 100
+export const TREATSIZE = 20

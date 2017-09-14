@@ -37,18 +37,4 @@ export const drawHouse = (c, h, w, entSide, player) => {
     console.log("DIDNT WORK")
 }
 
-export const newIsland = () => {
-    let noiseScale = 0.02
-    img = p.createImage(10000, 15000);
-    img.loadPixels();
-    for (i = 0; i < img.width; i++) {
-        for (j = 0; j < img.height; j++) {
-            var noiseVal = p.noise(x);
-            img.set(i, j, color(0, 255 * noiseVal, 0));
-        }
-    }
-    img.updatePixels();
-    return img
-}
-
 
